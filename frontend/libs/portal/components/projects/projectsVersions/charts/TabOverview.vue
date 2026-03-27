@@ -12,8 +12,8 @@ import {
   ScanRemarkStats,
 } from '@disclosure-portal/model/VersionDetails';
 import versionService from '@disclosure-portal/services/version';
-import {useAppStore} from '@disclosure-portal/stores/app';
 import {useProjectStore} from '@disclosure-portal/stores/project.store';
+import {useSbomStore} from '@disclosure-portal/stores/sbom.store';
 import {getColor, getColorRGB} from '@disclosure-portal/utils/Tools';
 import {
   ArcElement,
@@ -34,6 +34,7 @@ import {Bar, Doughnut} from 'vue-chartjs';
 import {useI18n} from 'vue-i18n';
 import {useRoute, useRouter} from 'vue-router';
 import {applyChartDefaults} from './ChartSettings';
+import {useAppStore} from '@disclosure-portal/stores/app';
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, ArcElement, CategoryScale, LinearScale);
 
@@ -52,13 +53,13 @@ type ChartData = {
 const {t} = useI18n();
 const router = useRouter();
 const route = useRoute();
-const appStore = useAppStore();
+const sbomStore = useSbomStore();
 applyChartDefaults();
 
 const projectModel = computed(() => useProjectStore().currentProject);
-const versionDetails = computed(() => appStore.getCurrentVersion);
-const spdxFileHistory = computed(() => appStore.getChannelSpdxs);
-const currentSpdx = computed(() => appStore.getSelectedSpdx);
+const versionDetails = computed(() => sbomStore.getCurrentVersion);
+const spdxFileHistory = computed(() => sbomStore.getChannelSpdxs);
+const currentSpdx = computed(() => sbomStore.getSelectedSpdx);
 const sbomStats = ref<SbomStats>({} as SbomStats);
 const generalStats = ref<GeneralStats>({} as GeneralStats);
 const policyStateStats = ref<ComponentStats>({} as ComponentStats);
@@ -73,7 +74,7 @@ const legendItemsLicenseRemarks = ref<any[]>([]);
 const testColor = ref('#ffffff');
 const legendItemsPolicyStates = ref<any[]>([]);
 const legendItemsLicenseFamily = ref<any[]>([]);
-const alternateRender = ref(appStore.alternateRender);
+const alternateRender = ref(useAppStore().alternateRender);
 
 onMounted(async () => {
   testColor.value = getColor('--v-theme-licenceChartIcon');
