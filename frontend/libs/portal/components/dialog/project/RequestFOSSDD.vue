@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import {useApprovalCheck} from '@disclosure-portal/composables/useApprovalCheck';
 import {DocumentMeta, ExternalApprovalRequest} from '@disclosure-portal/model/ApprovalRequest';
-import {ApprovableInfoDto, ApprovableSPDXDto} from '@disclosure-portal/model/Project';
+import {ApprovableSPDXDto} from '@disclosure-portal/model/Project';
 import {ComponentStats, OverallReviewState, SpdxFile, VersionSlim} from '@disclosure-portal/model/VersionDetails';
 import projectService from '@disclosure-portal/services/projects';
 import versionService from '@disclosure-portal/services/version';
@@ -20,6 +20,7 @@ import dayjs from 'dayjs';
 import {computed, nextTick, ref, watch} from 'vue';
 import {useI18n} from 'vue-i18n';
 import {VForm} from 'vuetify/components';
+import {ApprovableInfo} from '@disclosure-portal/model/Approval';
 
 const projectStore = useProjectStore();
 const sbomStore = useSbomStore();
@@ -34,7 +35,7 @@ const sboms = ref<SpdxFile[]>([]);
 const selectedSbom = ref<SpdxFile | null>(null);
 const sbomStats = ref<ComponentStats>({} as ComponentStats);
 const tab = ref('');
-const approvableInfo = ref<ApprovableInfoDto>({} as ApprovableInfoDto);
+const approvableInfo = ref<ApprovableInfo>({} as ApprovableInfo);
 const childProjectChannels = ref<Map<string, VersionSlim>>(new Map());
 const comment = ref('');
 const radioGroup = ref(0);
