@@ -142,9 +142,7 @@ const customFilterTable = (rawCellValue: unknown, searchTerm: string, internalIt
     });
   }
 
-  const foundOfferIds = (project.offerIds || []).some((id) => id.indexOf(lowerSearch) !== -1);
-
-  return foundCell || foundProject || foundPolicy || foundFree || foundCustomIds || foundOfferIds;
+  return foundCell || foundProject || foundPolicy || foundFree || foundCustomIds;
 };
 </script>
 
